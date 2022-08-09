@@ -73,8 +73,26 @@ function printDoublyLinkedList($node, $sep, $fptr)
  */
 
 function sortedInsert($llist, $data) {
-    // Write your code here
-
+    
+    $current  = $llist;
+    $previous = null;
+    while ($current != null && $current->data < $data) {
+        $previous = $current;
+        $current  = $current->next;
+    }
+    $node = new DoublyLinkedListNode($data);
+    $node->next = $current;
+    $node->prev = $previous;
+    if ($previous == null) {
+        $llist = $node;
+    } else {
+        $previous->next = $node;
+    }
+    if ($current != null) {
+        $current->prev = $node;
+    }
+    
+    return $llist;
 }
 
 $fptr = fopen(getenv("OUTPUT_PATH"), "w");
